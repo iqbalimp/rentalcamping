@@ -11,7 +11,7 @@ Class Model_barang extends Ci_Model {
         return $query;
     }
 
-    public function get_barang_where($id)
+    function get_barang_where($id)
     {
         $this->db->select('*');
         $this->db->from('barang');
@@ -19,7 +19,26 @@ Class Model_barang extends Ci_Model {
         $this->db->join('gallery', 'barang.id_barang = gallery.id_barang');
         $this->db->where('kategori.nama_kategori',$id);
         $query = $this->db->get();
-        return $query;
+        $result = $query->result_array();
+        return $result;
+    }
+
+    function get_barang_array($id)
+    {
+        $query = $this->db->query("SELECT * FROM `barang` JOIN `gallery` ON `barang`.`id_barang` = `gallery`.`id_barang` WHERE `barang`.`id_barang` = ".$id);
+        foreach ($query->result() as $row){}
+        $datas = array(
+            'id_barang' => $row->id_barang,
+            'nama_barang' => $row->nama_barang,
+            'harga_sewa' => $row->harga_sewa,
+            'stock' => $row->stock,
+            'id_kategori' => $row->id_kategori,
+            'denda' => $row->denda,
+            'deskripsi' => $row->deskripsi,
+            'id_galeri' => $row->id_galeri,
+            'foto' => $row->foto
+        );
+        return $datas;
     }
 
     function get_foto($limit, $start)

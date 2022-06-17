@@ -150,9 +150,11 @@ class Welcome extends CI_Controller {
         
     function detail() {
         $id                      = $this->uri->segment(3);
-        $data['detail']          = $this->Model_barang->get_barang_where($id)->row_array();
+        // $data['detail']          = $this->Model_barang->get_barang_detail($id);
+        $data['detail']          = $this->Model_barang->get_barang_array($id);
         $this->session->set_flashdata('berhasil', 'Sukses Barang Berhasil Dimasukan kedalam Keranjang Belanja Silahkan Registrasi');
         $this->load->view('front/detail', $data);
+        // echo '<pre>'; print_r($data); echo '</pre>';die();
     }
 
     function chekout() {
