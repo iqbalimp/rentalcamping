@@ -11,7 +11,7 @@
  Target Server Version : 100424
  File Encoding         : 65001
 
- Date: 17/06/2022 07:28:36
+ Date: 18/06/2022 18:48:51
 */
 
 SET NAMES utf8mb4;
@@ -37,12 +37,11 @@ CREATE TABLE `barang`  (
 -- ----------------------------
 -- Records of barang
 -- ----------------------------
-INSERT INTO `barang` VALUES (1, 'testasd', '21000', 1, 1, NULL, 'asdasdasdasdasdasdasdasdasdasdasdasdasdasdasd');
-INSERT INTO `barang` VALUES (2, 'barang2', '22000', 22, 1, NULL, 'barang2barang2barang2barang2barang2barang2barang2barang2barang2barang2');
-INSERT INTO `barang` VALUES (3, 'barang3', '23000', 33, 1, NULL, 'barang3barang3barang3barang3barang3barang3barang3barang3');
-INSERT INTO `barang` VALUES (4, 'sleepingbag1', '11000', 20, 2, NULL, 'sleepingbag1');
-INSERT INTO `barang` VALUES (5, 'sleepingbag2', '22', 22, 1, NULL, 'sleepingbag2');
-INSERT INTO `barang` VALUES (6, 'backpack', '12', 12, 3, NULL, 'backpack');
+INSERT INTO `barang` VALUES (1, 'testasd', '21000', 1, 1, NULL, 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est, molestiae tempore dolores doloribus cum cumque, nesciunt porro quasi, perspiciatis corrupti suscipit aliquid voluptatibus. Tempore, repellendus! Doloribus, repellat. Beatae, ea voluptate!');
+INSERT INTO `barang` VALUES (2, 'barang2', '22000', 22, 1, NULL, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Odit exercitationem error provident laudantium ipsum dolor ducimus voluptates eos. Laudantium iusto cupiditate itaque ullam mollitia natus dignissimos, eum dolorum dolorem repellendus?');
+INSERT INTO `barang` VALUES (3, 'barang3', '23000', 33, 1, NULL, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias aspernatur, officiis omnis est distinctio aperiam nihil, ipsum quaerat illo quasi dolor repellat? Facere, voluptate deserunt itaque accusamus ad dolorum modi.');
+INSERT INTO `barang` VALUES (4, 'sleepingbag1', '11000', 20, 2, NULL, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe delectus natus, esse labore aliquam atque doloribus reprehenderit dolorem, repudiandae vitae fugiat obcaecati dolor fugit nemo harum nulla ab porro numquam.');
+INSERT INTO `barang` VALUES (6, 'backpack', '12', 12, 3, NULL, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias tempora tempore molestiae nemo esse possimus nesciunt, nihil corporis. Architecto reiciendis, totam hic nostrum nemo officia enim? A omnis est fugit.');
 
 -- ----------------------------
 -- Table structure for gallery
@@ -60,12 +59,11 @@ CREATE TABLE `gallery`  (
 -- ----------------------------
 -- Records of gallery
 -- ----------------------------
-INSERT INTO `gallery` VALUES (1, 1, 'dataset.png');
-INSERT INTO `gallery` VALUES (2, 2, 'Screenshot_2022-04-15_075332.png');
-INSERT INTO `gallery` VALUES (3, 3, '001-man.png');
-INSERT INTO `gallery` VALUES (4, 4, 'sleping22.jpg');
-INSERT INTO `gallery` VALUES (5, 5, 'sleping112.jpg');
-INSERT INTO `gallery` VALUES (6, 6, 'test1.jpg');
+INSERT INTO `gallery` VALUES (1, 1, 'TENDA1.jpg');
+INSERT INTO `gallery` VALUES (2, 2, 'TENDA2.jpg');
+INSERT INTO `gallery` VALUES (3, 3, 'TENDA3.jpg');
+INSERT INTO `gallery` VALUES (4, 4, 'SLEEPING1.png');
+INSERT INTO `gallery` VALUES (6, 6, 'TAS1.jpg');
 
 -- ----------------------------
 -- Table structure for history
@@ -117,6 +115,9 @@ CREATE TABLE `peminjaman`  (
 -- ----------------------------
 -- Records of peminjaman
 -- ----------------------------
+INSERT INTO `peminjaman` VALUES (37, 1, 2, 42000);
+INSERT INTO `peminjaman` VALUES (39, 4, 1, 11000);
+INSERT INTO `peminjaman` VALUES (40, 6, 1, 12);
 
 -- ----------------------------
 -- Table structure for pengembalian
@@ -145,8 +146,8 @@ DROP TABLE IF EXISTS `transaksi`;
 CREATE TABLE `transaksi`  (
   `id_transaksi` int NOT NULL AUTO_INCREMENT,
   `id_users` int NULL DEFAULT NULL,
-  `tanggal_awal_sewa` timestamp NULL DEFAULT NULL,
-  `tanggal_akhir_sewa` timestamp NULL DEFAULT NULL,
+  `tanggal_awal_sewa` date NULL DEFAULT NULL,
+  `tanggal_akhir_sewa` date NULL DEFAULT NULL,
   `jumlah_barang` int NULL DEFAULT NULL,
   `status` int NULL DEFAULT NULL,
   `total_sewa_semua` int NULL DEFAULT NULL,
@@ -154,11 +155,14 @@ CREATE TABLE `transaksi`  (
   PRIMARY KEY (`id_transaksi`) USING BTREE,
   INDEX `id_users`(`id_users`) USING BTREE,
   CONSTRAINT `id_users` FOREIGN KEY (`id_users`) REFERENCES `users` (`id_users`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 41 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of transaksi
 -- ----------------------------
+INSERT INTO `transaksi` VALUES (37, 27, '2022-06-12', '2022-06-13', 2, NULL, 42000, '001-man3.png');
+INSERT INTO `transaksi` VALUES (39, 27, '2022-06-12', '2022-06-13', 1, NULL, 11000, '001-man3.png');
+INSERT INTO `transaksi` VALUES (40, 39, NULL, NULL, 1, NULL, 12, NULL);
 
 -- ----------------------------
 -- Table structure for users
@@ -173,13 +177,16 @@ CREATE TABLE `users`  (
   `password` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL,
   `role` int NULL DEFAULT NULL,
   PRIMARY KEY (`id_users`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 40 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
 INSERT INTO `users` VALUES (1, 'IqbalMP', 'Surabaya', '08383099', 'iqbal', '22512e58749ffead12e90dbd59eddf24', 1);
 INSERT INTO `users` VALUES (2, 'Cust', 'test', '0833123', 'test', 'test', 2);
+INSERT INTO `users` VALUES (27, 'qwe', 'qwe', '123', 'qwe', '76d80224611fc919a5d54f0ff9fba446', 1);
+INSERT INTO `users` VALUES (38, 'qwe', 'qwe', '123', 'qwe', '76d80224611fc919a5d54f0ff9fba446', 1);
+INSERT INTO `users` VALUES (39, 'asd', 'asd', '123', 'asd', '7815696ecbf1c96e6894b779456d330e', 1);
 
 -- ----------------------------
 -- View structure for v_penjualan
@@ -190,6 +197,8 @@ CREATE ALGORITHM = UNDEFINED SQL SECURITY DEFINER VIEW `v_penjualan` AS SELECT
 	t.jumlah_barang, 
 	t.id_transaksi, 
 	b.nama_barang, 
+	t.tanggal_awal_sewa, 
+	t.tanggal_akhir_sewa, 
 	b.harga_sewa, 
 	k.nama_kategori, 
 	g.foto, 
