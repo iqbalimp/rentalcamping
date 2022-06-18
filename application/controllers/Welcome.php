@@ -154,7 +154,6 @@ class Welcome extends CI_Controller {
         $data['detail']          = $this->Model_barang->get_barang_array($id);
         $this->session->set_flashdata('berhasil', 'Sukses Barang Berhasil Dimasukan kedalam Keranjang Belanja Silahkan Registrasi');
         $this->load->view('front/detail', $data);
-        // echo '<pre>'; print_r($data); echo '</pre>';die();
     }
 
     function chekout() {
@@ -163,11 +162,12 @@ class Welcome extends CI_Controller {
             $id_barang                                   = $this->input->post('id_barang');
             $username                                    = $this->session->userdata('username');
             $password                                    = $this->session->userdata('password');
-            $id_pembeli                                  = $this->session->userdata('id_pembeli');
+            $id_pembeli                                  = $this->session->userdata('id_users');
             $chek = $this->Model_penjualan->chek_login($username, $password);
             if (!empty($chek)) {
-                $this->Model_pembelian->transaksi($id_pembeli, $id_barang);
-                $this->db->where('id_pembeli', $id_pembeli);
+                $id_transaksi            = $this->Model_pembelian->transaksi($id_pembeli, $id_barang);
+                $this->Model_pembelian->peminjaman($id_transaksi, $id_barang);
+                $this->db->where('id_users', $id_pembeli);
                 $data['barang']                          = $this->db->get('v_penjualan')->result();
                 $this->load->view('cart/list', $data);
             } else {
@@ -182,10 +182,10 @@ class Welcome extends CI_Controller {
             $id_barang                                   = $this->input->post('id_barang');
             $username                                    = $this->session->userdata('username');
             $password                                    = $this->session->userdata('password');
-            $id_pembeli                                  = $this->session->userdata('id_pembeli');
+            $id_pembeli                                  = $this->session->userdata('id_users');
             $chek = $this->Model_penjualan->chek_login($username, $password);
             if (!empty($chek)) {
-                $this->db->where('id_pembeli', $id_pembeli);
+                $this->db->where('id_users', $id_pembeli);
                 $data['barang']                          = $this->db->get('v_penjualan')->result();
                 $this->load->view('cart/list', $data);
             } 
@@ -196,9 +196,10 @@ class Welcome extends CI_Controller {
         if (isset($_POST['submit'])) {
             $id                          = $this->Model_pembelian->register();
             $id_barang                   = $this->input->post('id_barang');
-            $this->Model_pembelian->transaksi($id, $id_barang);
-            $id_pembeli                  = $this->session->userdata('id_pembeli');
-            $this->db->where('id_pembeli', $id_pembeli);
+            $id_transaksi                = $this->Model_pembelian->transaksi($id,$id_barang);
+            $this->Model_pembelian->peminjaman($id_transaksi, $id_barang);
+            $id_pembeli                  = $this->session->userdata('id_users');
+            $this->db->where('id_users', $id_pembeli);
             $data['barang']              = $this->db->get('v_penjualan')->result();
             $this->load->view('cart/list', $data);
         } else {
@@ -209,11 +210,11 @@ class Welcome extends CI_Controller {
 
     function cancel() {
         $id                              =$this->uri->segment(3);
-        $this->db->where('id_transaksi', $id);
-        $this->db->delete('tbl_transaksi');
+        $this->db->delete('peminjaman', array('id_transaksi' => $id));
+        $this->db->delete('transaksi', array('id_transaksi' => $id));
         $this->session->set_flashdata('hapus', 'Barang Berhasil Dihapus');
-        $id_pembeli                      =$this->session->userdata('id_pembeli');
-        $this->db->where('id_pembeli', $id_pembeli);
+        $id_pembeli                      =$this->session->userdata('id_users');
+        $this->db->where('id_users', $id_pembeli);
         $data['barang']                  = $this->db->get('v_penjualan')->result();
         $this->load->view('cart/list', $data);
     }
@@ -221,23 +222,22 @@ class Welcome extends CI_Controller {
     function finis() {
 
         if (isset($_POST['submit'])) {
-            $data=array(
-                'total_harga'=> $this->input->post('total_harga'),
-            );
-            $id= $this->session->userdata('id_pembeli');
-            $this->db->where('id_pembeli',$id);
-            $this->db->update('id_users',$data);
+            // $data=array(
+            //     'total_harga'=> $this->input->post('total_harga'),
+            // );
+            // $id= $this->session->userdata('id_users');
+            // $this->db->where('id_users',$id);
+            // $this->db->update('id_users',$data);
             $this->session->set_flashdata('sukses', 'Transaksi Berhasil Silahkan Klik Selesai Dan Login Menggunakan Menu My ACCONT Untuk Melihat Status Transaksi');
             $this->session->sess_destroy();
             redirect('Welcome');
             
         } else {
-            $id                     =$this->session->userdata('id_pembeli');
+            $id                     =$this->session->userdata('id_users');
             $this->db->select('*');
-            $this->db->from('barang');
-            $this->db->from('id_users');
-            $this->db->join('tbl_transaksi', 'tbl_transaksi.id_pembeli=pembeli.id_pembeli', 'tbl_transaksi.id_barang=barang.id_barang', "and id_pembeli=$id");
-            $this->db->where('tbl_transaksi.id_pembeli', $id);
+            $this->db->from('transaksi');
+            $this->db->join('users', 'transaksi.id_users = users.id_users');
+            $this->db->where('transaksi.id_users',$id);
             $data['chek']           =$this->db->get()->row_array();
             $this->load->view('finis/list', $data);
         }

@@ -39,7 +39,7 @@
                                 <td><?php echo $row->nama_barang; ?></td>
                                 <td><?php echo $row->nama_kategori; ?></td>
                                 <td><?php echo $row->alamat; ?></td>
-                                <td><?php echo number_format($row->harga_barang,'0',',','.') ; ?></td>
+                                <td><?php echo number_format($row->harga_sewa,'0',',','.') ; ?></td>
                                 <td class="py-1">
                                     <img src="uploads/barang/<?php echo $row->foto ?>" alt="image" />
                                 </td>

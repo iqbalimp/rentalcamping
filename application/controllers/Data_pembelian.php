@@ -8,7 +8,7 @@ Class Data_pembelian extends Ci_Controller {
     }
 
     function index() {
-        $data['pembeli'] = $this->db->get('pembeli')->result();
+        $data['pembeli'] = $this->db->get('users')->result();
         $this->template->load('templateadmin', 'pembeli/list', $data);
     }
 
@@ -29,7 +29,7 @@ Class Data_pembelian extends Ci_Controller {
             redirect('Data_pembelian');
         } else {
             $id = $this->uri->segment(3);
-            $data['pembeli'] = $this->db->get_where('pembeli', array('id_pembeli' => $id))->row_Array();
+            $data['pembeli'] = $this->db->get_where('users', array('id_pembeli' => $id))->row_Array();
             $this->template->load('templateadmin', 'pembeli/edit', $data);
         }
     }

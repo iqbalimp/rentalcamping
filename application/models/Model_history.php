@@ -5,11 +5,11 @@ Class Model_history extends Ci_Model{
     function update($foto){
         
         $data=array(
-            'bukti_pembayaran'=>$foto
+            'upload_pembayaran'=>$foto
         );
-        $user_id= $this->session->userdata('id_pembeli');
-        $this->db->where('id_pembeli',$user_id);
-        $this->db->update('tbl_transaksi',$data);
+        $user_id= $this->session->userdata('id_users');
+        $this->db->where('id_users',$user_id);
+        $this->db->update('transaksi',$data);
     }
     
 }

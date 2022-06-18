@@ -20,6 +20,8 @@ if ($this->session->flashdata('hapus')) {
                             <td>HARGA</td>
                             <td>QUANTITY</td>
                             <td>KATEGORI</td>
+                            <td>TGL RENCANA SEWA</td>
+                            <td>TGL RENCANA KEMBALI</td>
                             <td>MENU</td>
                         </tr>
                     </thead>
@@ -30,9 +32,11 @@ if ($this->session->flashdata('hapus')) {
                         <tr>
                             <td><?php echo $no; ?></td>
                             <td><img src="<?php echo base_url()?>uploads/barang/<?php echo $row->foto; ?>" class="img-responsive" /></td>
-                            <td><p class="text-center">Rp.<?php echo number_format($row->harga_barang,'0',',','.'); ?></p></td>
-                            <td><p><?php echo $row->qty; ?></p></td>
+                            <td><p class="text-center">Rp.<?php echo number_format($row->harga_sewa,'0',',','.'); ?></p></td>
+                            <td><p><?php echo $row->jumlah_barang; ?></p></td>
                             <td><p><?php echo $row->nama_kategori; ?></p></td>
+                            <td><p><?php echo $row->tanggal_awal_sewa; ?></p></td>
+                            <td><p><?php echo $row->tanggal_akhir_sewa; ?></p></td>
                             <td><p><a href="<?php echo site_url('Welcome/cancel/'.$row->id_transaksi) ?>" class="cart-remove"><span class="fa fa-remove"></span></a></p></td>
                         </tr>
                         <?php $no++; ?>

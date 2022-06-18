@@ -8,9 +8,9 @@ Class History_pembelian extends Ci_Controller{
     }
             
     function index(){
-        $user_id          = $this->session->userdata('id_pembeli');
+        $user_id          = $this->session->userdata('id_users');
         if (!empty($user_id)) {
-          $data['history']= $this->db->get_where('v_penjualan',array('id_pembeli'=>$user_id))->result();
+          $data['history']= $this->db->get_where('v_penjualan',array('id_users'=>$user_id))->result();
           $this->template->load('templateadmin','history_pembelian/list',$data);
         }else{
          $data['history'] = $this->db->get('v_penjualan')->result();
@@ -28,9 +28,6 @@ Class History_pembelian extends Ci_Controller{
         }
         
     }
-            
-    
-    
         
     function upload() {
         $config['upload_path']   = './uploads/bukti';

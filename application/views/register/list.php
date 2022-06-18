@@ -14,7 +14,8 @@ if ($this->session->flashdata('berhasil')) {
         <legend><center><h2><b>Registration Form</b></h2></center></legend><br>
         <?php 
             echo form_open('Welcome/register');
-            echo form_hidden('id_barang',$id_barang);
+            echo form_hidden('role', 1);
+            echo form_hidden('id_barang', $id_barang);
         ?>
         <div class="row">
             <div class="col-md-6">
@@ -38,27 +39,17 @@ if ($this->session->flashdata('berhasil')) {
                 </div>
 
                 <div class="form-group">
-                    <label class=" control-label" >Negara</label> 
+                    <label class=" control-label" >No Telepon</label> 
                     <div class="inputGroupContainer">
                         <div class="input-group">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-btc"></i></span>
-                            <input name="negara" placeholder="negara" class="form-control"  type="text">
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-phone"></i></span>
+                            <input name="no_telp" placeholder="no_telp" class="form-control"  type="text">
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <label class=" control-label" >Kode Pos</label> 
-                        <div class="inputGroupContainer">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-apple"></i></span>
-                                <input name="kode_pos" class="form-control"  type="number">
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="form-group">
                         <label class=" control-label" >Username</label> 
                         <div class="inputGroupContainer">
@@ -73,7 +64,7 @@ if ($this->session->flashdata('berhasil')) {
                         <label class=" control-label" >Password</label> 
                         <div class="inputGroupContainer">
                             <div class="input-group">
-                                <span class="input-group-addon"><i class="glyphicon glyphicon-paperclip"></i></span>
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-star"></i></span>
                                 <input name="password" placeholder="password" class="form-control"  type="password">
                             </div>
                         </div>

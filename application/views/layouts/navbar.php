@@ -51,17 +51,17 @@
                 </div>
                 <a href="<?php echo site_url('Welcome/lihat') ?>" class="btn btn-cart"><i class="fa fa-shopping-cart fa-lg"></i> 
                     <?php
-                    //     $id=$this->session->userdata('id_pembeli');
-                    //      $this->db->select('SUM(jumlah_barang) as total');
-                    //      $this->db->from('v_penjualan');
-                    //      $this->db->where('id_pembeli',$id);
-                    //   $sum=$this->db->get()->row()->total;
-                    //   if ($sum>0) {
-                    //         echo "<span class='badge badge-primary'>$sum</span>";
-                    //     }else{
-                    //         echo "<span class='badge badge-primary'>0</span>";
+                        $id=$this->session->userdata('id_users');
+                         $this->db->select('SUM(jumlah_barang) as total');
+                         $this->db->from('v_penjualan');
+                         $this->db->where('id_users',$id);
+                      $sum=$this->db->get()->row()->total;
+                      if ($sum>0) {
+                            echo "<span class='badge badge-primary'>$sum</span>";
+                        }else{
+                            echo "<span class='badge badge-primary'>0</span>";
                     
-                    //     }
+                        }
                        
                     ?>
 

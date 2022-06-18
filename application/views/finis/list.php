@@ -19,22 +19,9 @@ if ($this->session->flashdata('sukses')) {
         <div class="row" style="margin-bottom: 70px;">   
             <div class="col-md-1">
             </div>
-            <?php
-            $id = $this->session->userdata('id_pembeli');
-            $this->db->select('SUM(qty) as total');
-            $this->db->select('SUM(harga_barang) as harga');
-            $this->db->from('v_chek');
-            $this->db->where('id_pembeli', $id);
-            $sum = $this->db->get()->row()->total;
-            $this->db->select('SUM(harga_barang) as harga');
-            $this->db->from('v_chek');
-            $this->db->where('id_pembeli', $id);
-            $total = $this->db->get()->row()->harga;
-            $count=$sum*$total
-            ?>
             <div class="col-md-11">
                 <h3>INVOICE </h3>
-                <h4>Total Pembayaran: <span style="color: #e74c3c;"><?php  echo number_format($count,'0',',','.') ; ?></span></h4>
+                <h4>Total Pembayaran: <span style="color: #e74c3c;"><?php  echo number_format($chek['total_sewa_semua'],'0',',','.') ; ?></span></h4>
             </div>
         </div><!-- row -->
         <div class="form-pembeli row">
@@ -43,7 +30,7 @@ if ($this->session->flashdata('sukses')) {
                 </div>
                 <div class="col-md-11">
                     <?php echo form_open('Welcome/finis','class="form-horizontal"') ;
-                          echo form_hidden('total_harga',$count);
+                          echo form_hidden('total_harga',$chek['total_sewa_semua']);
                     ?>
                    
                         <div class="form-group">
@@ -59,15 +46,9 @@ if ($this->session->flashdata('sukses')) {
                             </div>
                         </div>
                         <div class="form-group">
-                            <label  class="col-sm-4 control-label">COUNTRY</label>
+                            <label class="col-sm-4 control-label">No Telepon</label>
                             <div class="col-sm-8">
-                                <input type="text" value="<?php echo $chek['negara'] ?>" class="form-control"  placeholder="Masukan Negara Bagianmu">
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-4 control-label">ZIP PORTAL / KODE POS</label>
-                            <div class="col-sm-8">
-                                <input type="number" value="<?php echo $chek['kode_pos'] ?>" class="form-control"  placeholder="Masukan Kode POS">
+                                <input type="number" readonly="" class="form-control"  value="<?php echo $chek['no_telp'] ?>">
                             </div>
                         </div>
                         <div class="form-group">

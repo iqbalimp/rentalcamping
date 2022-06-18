@@ -20,13 +20,6 @@
                                 Alamat
                             </th>
                             <th>
-                                Negara
-                            </th>
-                            <th>
-                                Kode pos
-                            </th>
-                            
-                            <th>
                                 Total Belanja
                             </th>
                             
@@ -51,24 +44,13 @@
                                 <?php echo $row->alamat;  ?>
                             </td>
                             <td>
-                              
-                               <?php echo $row->negara ?>
-                               
-                            </td>
-                            <td>
-                               
-                                    <?php echo $row->kode_pos ?>
-                            </td>
-                            
-                            <td>
-                               
                                     <?php echo number_format($row->total_harga,'0',',','.')  ?>
                             </td>
                             <td>
-                               <?php echo anchor('Data_pembelian/edit/'.$row->id_pembeli,'Edit',array('class'=>'btn btn-danger')) ?>
+                               <?php echo anchor('Data_pembelian/edit/'.$row->id_users,'Edit',array('class'=>'btn btn-danger')) ?>
                             </td>
                             <td>
-                              <?php echo anchor('Data_pembelian/hapus/'.$row->id_pembeli,'Hapus',array('class'=>'btn btn-success')) ?>
+                              <?php echo anchor('Data_pembelian/hapus/'.$row->id_users,'Hapus',array('class'=>'btn btn-success')) ?>
                            </td>
                         </tr>
                         <?php $no++; ?>
